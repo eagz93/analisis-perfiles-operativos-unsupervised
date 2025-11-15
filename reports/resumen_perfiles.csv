@@ -1,0 +1,6 @@
+Algoritmo,Cluster,Perfil,N_Observaciones,Porcentaje,KWHD_Promedio,Factor_Potencia,THD_Promedio,Hora_Pico
+K-means,0,Alta Carga Operativa,1508,52.3%,21.03,0.984,0.161,8:00
+K-means,1,Baja Carga / Reposo,1373,47.7%,6.96,0.992,0.356,0:00
+DBSCAN,0,Pico Máximo de Carga,326,11.3%,22.39,0.992,0.160,14:00
+DBSCAN,1,Operación Mínima,1118,38.8%,6.42,0.998,0.362,2:00
+DBSCAN,2,Carga Media Estable,506,17.6%,17.71,0.987,0.163,5:00

@@ -1,0 +1,74 @@
+Proyecto Final: Análisis Avanzado con Aprendizaje No Supervisado
+Descripción
+Desarrolle un análisis avanzado de aprendizaje no supervisado utilizando un conjunto de datos reales de su elección (puede ser empresarial, gubernamental, social, médico, ambiental u otro sector de interés), que contenga múltiples variables y suficiente complejidad para justificar un análisis multidimensional. Su proyecto debe integrar dos componentes metodológicos principales:
+
+Reducción de dimensionalidad: Aplicación de al menos dos técnicas diferentes (por ejemplo, PCA, t-SNE, UMAP, Factor Analysis, Kernel PCA, etc.), realizando un análisis comparativo riguroso que justifique cuál proporciona la mejor representación de los datos para su caso específico, incluyendo visualizaciones interpretables y métricas de evaluación.
+Clustering: Implementación de al menos dos algoritmos de clustering distintos (pudiendo elegir entre K-means, DBSCAN, Agglomerative Clustering, Gaussian Mixture Models, Spectral Clustering, BIRCH, HDBSCAN, etc.), realizando una evaluación exhaustiva mediante múltiples métricas internas (como silueta, Davies-Bouldin, Calinski-Harabasz, etc.), además de proporcionar una interpretación detallada de los clusters obtenidos en el contexto del dominio de aplicación.
+Entregables
+Repositorio de GitHub con:
+Estructura organizada de directorios
+README.md completo con instrucciones de reproducibilidad
+Licencia apropiada
+.gitignore configurado correctamente
+Documentación del proyecto
+Notebooks de Jupyter:
+Notebook de exploración y preprocesamiento de datos
+Notebook de reducción de dimensionalidad
+Notebook de clustering
+Notebook de interpretación y conclusiones
+Informe técnico (formato PDF) que incluya:
+Introducción y objetivos del proyecto
+Justificación y descripción detallada del dataset utilizado (origen, estructura, variables, etc.)
+Metodología empleada
+Análisis exploratorio de datos
+Resultados de la reducción de dimensionalidad
+Resultados del clustering
+Interpretación de resultados en el contexto del dominio de aplicación
+Insights accionables y recomendaciones estratégicas
+Conclusiones y trabajo futuro
+Referencias bibliográficas
+Presentación ejecutiva (formato PDF o PPT):
+Máximo 15 diapositivas
+Enfocada en hallazgos clave y valor para el negocio/dominio
+Visualizaciones efectivas
+Criterios de Evaluación
+Selección y justificación del dataset:
+Pertinencia y complejidad adecuada
+Documentación del origen de los datos
+Justificación de su elección para análisis no supervisado
+Preprocesamiento y exploración:
+Calidad de la limpieza y transformación de datos
+Profundidad del análisis exploratorio
+Tratamiento adecuado de valores atípicos y datos faltantes
+Reducción de dimensionalidad:
+Implementación correcta de al menos dos técnicas
+Análisis comparativo fundamentado
+Visualizaciones e interpretación de resultados
+Clustering:
+Implementación correcta de al menos dos algoritmos
+Determinación justificada del número óptimo de clusters
+Evaluación mediante múltiples métricas
+Caracterización detallada de los clusters
+Interpretación y aplicación:
+Traducción de resultados técnicos a insights accionables
+Relevancia y originalidad de las recomendaciones
+Conexión clara entre los hallazgos y el contexto de aplicación
+Calidad técnica:
+Código reproducible y bien documentado
+Eficiencia computacional
+Manejo de buenas prácticas de programación
+Recomendaciones
+Seleccione un dataset con un mínimo de 1000 registros y 10 variables para asegurar suficiente complejidad.
+Documente todas las fuentes de sus datos y obtenga los permisos necesarios si son datos privados.
+Equilibre el rigor técnico con la interpretabilidad de los resultados.
+Preste especial atención a la visualización efectiva de datos multidimensionales.
+Enfoque su análisis en generar valor real para el dominio específico del dataset.
+Considere las limitaciones de su enfoque y sugiera posibles mejoras o extensiones.
+Fecha de Entrega
+Presentación final: A definir
+Entrega de repositorio e informe: [Fecha - 2 días antes de la presentación]
+Recursos Recomendados
+Scikit-learn: https://scikit-learn.org/
+Matplotlib y Seaborn: https://matplotlib.org/, https://seaborn.pydata.org/
+Plotly: https://plotly.com/python/
+Fuentes de datasets: Kaggle, UCI ML Repository, repositorios del gobierno, datos de empresas, etc.
