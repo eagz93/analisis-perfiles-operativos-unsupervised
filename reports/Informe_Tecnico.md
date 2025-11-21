@@ -3,7 +3,13 @@
 **Cliente:** Industrial - Sector Eléctrico  
 **Periodo de Análisis:** Octubre 2025  
 **Fecha del Informe:** Noviembre 2025  
-**Autor:** Proyecto Académico - Aprendizaje No Supervisado
+
+**Autores:**
+- GZ130034 Galicia Zavaleta Eduardo Andrés
+- HR150875 Hernández Rodríguez Fernando José
+- HV252954 Huezo Vasquez William Alexander
+- PB252919 Portillo Belloso Daniel Roberto
+- ZM252743 Zuñiga Martinez Francisco Ramon
 
 ---
 

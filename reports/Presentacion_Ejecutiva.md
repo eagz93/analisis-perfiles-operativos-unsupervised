@@ -9,6 +9,13 @@
 
 **Título:** Análisis de Perfiles Operativos mediante Aprendizaje No Supervisado
 
+**Autores:**
+- GZ130034 Galicia Zavaleta Eduardo Andrés
+- HR150875 Hernández Rodríguez Fernando José
+- HV252954 Huezo Vasquez William Alexander
+- PB252919 Portillo Belloso Daniel Roberto
+- ZM252743 Zuñiga Martinez Francisco Ramon
+
 **Cliente:** Industrial - Sector Eléctrico  
 **Período:** Octubre 2025 (2,881 mediciones)  
 **Frecuencia:** Intervalos de 15 minutos  
