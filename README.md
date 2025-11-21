@@ -1,6 +1,6 @@
 # Análisis de Perfiles Operativos en Cliente Industrial mediante Aprendizaje No Supervisado
 
-## 📋 Descripción del Proyecto
+## Descripción del Proyecto
 
 Este proyecto aplica técnicas avanzadas de aprendizaje no supervisado para identificar **perfiles operativos** y **detectar anomalías** en datos de consumo eléctrico industrial de alta frecuencia (intervalos de 15 minutos). El análisis utiliza reducción de dimensionalidad y clustering para descubrir patrones ocultos en el comportamiento energético y la calidad de potencia.
 
@@ -13,7 +13,7 @@ Este proyecto aplica técnicas avanzadas de aprendizaje no supervisado para iden
 
 ---
 
-## 📊 Dataset
+## Dataset
 
 **Fuente:** Datos de medición eléctrica trifásica de cliente industrial  
 **Periodo:** Octubre 2025  
@@ -30,7 +30,7 @@ Este proyecto aplica técnicas avanzadas de aprendizaje no supervisado para iden
 
 ---
 
-## 🏗️ Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 Proyecto no supervizado/
@@ -46,8 +46,8 @@ Proyecto no supervizado/
 ├── images/
 │   └── (gráficos generados)
 ├── reports/
-│   ├── Informe_Tecnico.pdf                # Informe completo
-│   └── Presentacion_Ejecutiva.pdf         # Slides ejecutivos
+│   ├── Informe_Tecnico.md                # Informe completo
+│   └── Presentacion_Ejecutiva.md         # Slides ejecutivos
 ├── requirements.txt                       # Dependencias Python
 ├── .gitignore
 ├── LICENSE
