@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Análisis de Perfiles Operativos - Proyecto No Supervisado</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/theme/night.min.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/plugin/highlight/monokai.min.css">
+
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+        }
+        .reveal section img {
+            background: none;
+            border: none;
+            box-shadow: none;
+            max-width: 100%;
+            height: auto;
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+        .reveal section img:hover {
+            transform: scale(1.02);
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .col {
+            flex: 1;
+            padding: 10px;
+            min-width: 200px;
+        }
+        .small-text {
+            font-size: 0.6em;
+        }
+        .medium-text {
+            font-size: 0.8em;
+        }
+        table {
+            font-size: 0.6em !important;
+            margin: 0 auto;
+        }
+        .highlight-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .fragment.visible:not(.current-fragment) {
+            color: inherit;
+            opacity: 1;
+        }
+        .author-list {
+            font-size: 0.6em;
+            list-style-type: none;
+            padding: 0;
+        }
+        .author-list li {
+            margin-bottom: 5px;
+        }
+        
+        /* Modal para zoom de imágenes */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            cursor: zoom-out;
+        }
+        .image-modal img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 95%;
+            max-height: 95vh;
+            cursor: zoom-out;
+        }
+        .image-modal .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+        }
+        .image-modal .close-modal:hover {
+            color: #ccc;
+        }
+        .image-container {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            max-width: 100%;
+        }
+        .image-container img {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Slide 1: Portada -->
+            <section>
+                <h3>Análisis de Perfiles Operativos</h3>
+                <h4>Aprendizaje No Supervisado en Consumo Eléctrico</h4>
+                <div class="highlight-box">
+                    <p class="medium-text">Cliente Industrial - Sector Eléctrico</p>
+                    <p class="small-text">Octubre 2025 | 2,881 Mediciones</p>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <p class="small-text"><strong>Autores:</strong></p>
+                    <ul class="author-list">
+                        <li>GZ130034 Galicia Zavaleta Eduardo Andrés</li>
+                        <li>HR150875 Hernández Rodríguez Fernando José</li>
+                        <li>HV252954 Huezo Vasquez William Alexander</li>
+                        <li>PB252919 Portillo Belloso Daniel Roberto</li>
+                        <li>ZM252743 Zuñiga Martinez Francisco Ramon</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 2: El Desafío -->
+            <section>
+                <h3>El Desafío</h3>
+                <div class="container">
+                    <div class="col">
+                        <div class="highlight-box">
+                            <h5>Contexto</h5>
+                            <ul class="medium-text">
+                                <li>Cliente industrial con alto consumo</li>
+                                <li>47 variables eléctricas (15 min)</li>
+                                <li>Sin visibilidad de patrones</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="highlight-box" style="border-left: 5px solid #e74c3c;">
+                            <h5>Impacto Negativo</h5>
+                            <ul class="medium-text">
+                                <li>Costos no optimizados</li>
+                                <li>Penalizaciones por calidad</li>
+                                <li>Anomalías invisibles</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <blockquote class="fragment fade-up" style="margin-top: 20px; font-size: 0.8em;">
+                    "¿Existen perfiles operativos distintos y oportunidades de optimización oculta?"
+                </blockquote>
+            </section>
+
+            <!-- Slide 3: Metodología Overview -->
+            <section>
+                <h3>Metodología en 4 Fases</h3>
+                <div class="highlight-box">
+                    <ol class="medium-text">
+                        <li class="fragment"><strong>Exploración y Limpieza:</strong> Preparación del dataset.</li>
+                        <li class="fragment"><strong>Reducción Dimensional:</strong> PCA y UMAP.</li>
+                        <li class="fragment"><strong>Clustering:</strong> K-means y DBSCAN.</li>
+                        <li class="fragment"><strong>Interpretación:</strong> Insights de negocio.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Slide 4: Fase 1 - Exploración -->
+            <section>
+                <h3>Fase 1: Exploración y Limpieza</h3>
+                <div class="container">
+                    <div class="col">
+                        <div class="highlight-box">
+                            <h5>Limpieza de Datos</h5>
+                            <ul class="small-text">
+                                <li><strong>Input:</strong> 2,881 observaciones (47 variables).</li>
+                                <li><strong>Eliminación:</strong> 8 variables de varianza cero.</li>
+                                <li><strong>Missing Values:</strong> 0% (Dataset completo).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="highlight-box" style="border-left: 5px solid #3498db;">
+                            <h5>Feature Engineering (+16 vars)</h5>
+                            <ul class="small-text">
+                                <li><strong>Factor de Potencia:</strong> KWHD / KVAHD.</li>
+                                <li><strong>Desbalances:</strong> Diferenciales de corriente/voltaje.</li>
+                                <li><strong>Promedios THD:</strong> Agregación de distorsión.</li>
+                                <li><strong>Variables Temporales:</strong> Hora, Día.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4b: Feature Engineering Detail -->
+            <section>
+                <h3>Ingeniería de Características</h3>
+                <p class="small-text">Segmentación de variables para enriquecer el modelo</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                    <!-- Temporales -->
+                    <div style="background: rgba(52, 152, 219, 0.1); border: 2px solid #3498db; border-radius: 10px; padding: 15px;">
+                        <h5 style="color: #3498db; margin: 0;">🕒 Temporales</h5>
+                        <hr style="border-color: #3498db; opacity: 0.3;">
+                        <ul class="small-text" style="list-style: none; padding: 0; margin: 0;">
+                            <li>• Hora del día (0-23)</li>
+                            <li>• Día de la semana</li>
+                            <li>• Estacionalidad</li>
+                        </ul>
+                    </div>
+
+                    <!-- Consumo -->
+                    <div style="background: rgba(46, 204, 113, 0.1); border: 2px solid #2ecc71; border-radius: 10px; padding: 15px;">
+                        <h5 style="color: #2ecc71; margin: 0;">⚡ Consumo</h5>
+                        <hr style="border-color: #2ecc71; opacity: 0.3;">
+                        <ul class="small-text" style="list-style: none; padding: 0; margin: 0;">
+                            <li>• Energía Activa (kWh)</li>
+                            <li>• Energía Reactiva (kVARh)</li>
+                            <li>• Demanda Máxima</li>
+                        </ul>
+                    </div>
+
+                    <!-- Calidad -->
+                    <div style="background: rgba(231, 76, 60, 0.1); border: 2px solid #e74c3c; border-radius: 10px; padding: 15px;">
+                        <h5 style="color: #e74c3c; margin: 0;">⚠️ Calidad</h5>
+                        <hr style="border-color: #e74c3c; opacity: 0.3;">
+                        <ul class="small-text" style="list-style: none; padding: 0; margin: 0;">
+                            <li>• THD (Distorsión)</li>
+                            <li>• Fluctuaciones Voltaje</li>
+                            <li>• Armónicos</li>
+                        </ul>
+                    </div>
+
+                    <!-- Eficiencia -->
+                    <div style="background: rgba(155, 89, 182, 0.1); border: 2px solid #9b59b6; border-radius: 10px; padding: 15px;">
+                        <h5 style="color: #9b59b6; margin: 0;">⚖️ Eficiencia</h5>
+                        <hr style="border-color: #9b59b6; opacity: 0.3;">
+                        <ul class="small-text" style="list-style: none; padding: 0; margin: 0;">
+                            <li>• Factor de Potencia</li>
+                            <li>• Desbalance de Fases</li>
+                            <li>• Corriente de Neutro</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5a: Fase 1 - Distribución Consumo -->
+            <section>
+                <h3>Distribución de Consumo</h3>
+                <p class="small-text">Análisis de variables energéticas principales</p>
+                <div class="image-container">
+                    <img src="images/distribucion_consumo.png" alt="Distribución Consumo" class="zoomable" style="max-height: 500px; width: auto;">
+                </div>
+            </section>
+
+            <!-- Slide 5b: Fase 1 - Correlaciones -->
+            <section>
+                <h3>Correlaciones Clave</h3>
+                <p class="small-text">Relación entre variables operativas</p>
+                <div class="image-container">
+                    <img src="images/matriz_correlacion.png" alt="Matriz de Correlación" class="zoomable" style="max-height: 500px; width: auto;">
+                </div>
+            </section>
+
+            <!-- Slide 6: Fase 2 - Reducción Dimensional -->
+            <section>
+                <h3 style="margin-bottom: 10px;">Fase 2: Reducción Dimensional (PCA)</h3>
+                <p class="small-text" style="margin-bottom: 15px;">Varianza Explicada: <strong>69.90%</strong> (3 Componentes)</p>
+                
+                <div class="image-container" style="margin-bottom: 10px;">
+                    <img src="images/varianzaacumulada.png" alt="Scree Plot PCA" class="zoomable" style="max-height: 280px; width: auto;">
+                </div>
+
+                <div class="container" style="margin-top: 10px;">
+                    <div class="col" style="padding: 5px;">
+                        <div class="highlight-box" style="padding: 12px; margin: 5px;">
+                            <h5 style="font-size: 0.9em; margin: 0 0 5px 0;">PC1 (38.6%)</h5>
+                            <p class="small-text" style="margin: 0;">Nivel de Carga Global</p>
+                        </div>
+                    </div>
+                    <div class="col" style="padding: 5px;">
+                        <div class="highlight-box" style="padding: 12px; margin: 5px;">
+                            <h5 style="font-size: 0.9em; margin: 0 0 5px 0;">PC2 (21.2%)</h5>
+                            <p class="small-text" style="margin: 0;">Estabilidad de Voltaje</p>
+                        </div>
+                    </div>
+                    <div class="col" style="padding: 5px;">
+                        <div class="highlight-box" style="padding: 12px; margin: 5px;">
+                            <h5 style="font-size: 0.9em; margin: 0 0 5px 0;">PC3 (10.1%)</h5>
+                            <p class="small-text" style="margin: 0;">Desbalance de Fases</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Fase 2 - UMAP -->
+            <section>
+                <h3>Visualización UMAP</h3>
+                <p class="small-text">Revelando la estructura no lineal y agrupaciones naturales</p>
+                <div class="image-container">
+                    <img src="images/kmeans_clusters_visualization.png" alt="Visualización UMAP" class="zoomable" style="max-height: 500px; width: auto;">
+                </div>
+            </section>
+
+            <!-- Slide 7b: Comparación PCA vs UMAP -->
+            <section>
+                <h3>Comparación: PCA vs UMAP</h3>
+                <p class="small-text">Linealidad vs Estructura Local</p>
+                <div class="image-container">
+                    <img src="images/reduccion.png" alt="Comparación PCA vs UMAP" class="zoomable" style="max-height: 500px; width: auto;">
+                </div>
+                <p class="small-text fragment">UMAP logra separar mejor los grupos densos que PCA.</p>
+            </section>
+
+            <!-- Slide 8: Fase 3 - Validación K-means -->
+            <section>
+                <h3>Fase 3: Validación de Modelos</h3>
+                <p class="medium-text">Selección de k=2 (Elbow Method & Silhouette)</p>
+                <div class="container">
+                    <div class="col">
+                        <div class="image-container">
+                            <img src="images/kmeans_elbow_metrics.png" alt="Métricas del Codo" class="zoomable" style="max-height: 380px; width: auto;">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="highlight-box">
+                            <ul class="small-text">
+                                <li><strong>Elbow:</strong> Inflexión clara en k=2.</li>
+                                <li><strong>Silhouette:</strong> Máximo local (0.306).</li>
+                                <li><strong>Davies-Bouldin:</strong> Mínimo (mejor separación).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: Fase 3 - Resultados K-means -->
+            <section>
+                <h3>Perfiles Operativos (K-means)</h3>
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Perfil</th>
+                            <th>% Tiempo</th>
+                            <th>Consumo</th>
+                            <th>THD (Calidad)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Alta Carga</strong></td>
+                            <td>52.3%</td>
+                            <td>21.03 kWh</td>
+                            <td style="color: #2ecc71;">0.16 (Bueno)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Baja Carga</strong></td>
+                            <td>47.7%</td>
+                            <td>6.96 kWh</td>
+                            <td style="color: #e74c3c;">0.36 (Malo) ⚠️</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <p class="medium-text"><strong>Hallazgo:</strong> Deterioro crítico de calidad (THD) en baja carga.</p>
+                </div>
+            </section>
+
+            <!-- Slide 10: Fase 3 - Distribución Variables -->
+            <section>
+                <h3>Caracterización de Variables</h3>
+                <p class="small-text">Contrastes en Potencia Activa y Corriente</p>
+                <div class="image-container">
+                    <img src="images/perfiles_distribucion.png" alt="Distribución de Perfiles" class="zoomable" style="max-height: 500px; width: auto;">
+                </div>
+            </section>
+
+            <!-- Slide 11: Fase 3 - Radar Calidad -->
+            <section>
+                <h3>Calidad Eléctrica: Radar</h3>
+                <p class="small-text">Comparativa de métricas de calidad por perfil</p>
+                <div class="image-container">
+                    <img src="images/radar_calidad_electrica.png" alt="Radar de Calidad" class="zoomable" style="max-height: 500px; width: auto;">
+                </div>
+            </section>
+
+            <!-- Slide 12: Fase 3 - Calibración DBSCAN -->
+            <section>
+                <h3>Calibración DBSCAN (K-Distance)</h3>
+                <p class="medium-text">Detección del Epsilon óptimo (eps=2.5)</p>
+                <div class="container">
+                    <div class="col">
+                        <div class="image-container">
+                            <img src="images/dbscan_k_distance.png" alt="K-Distance" class="zoomable" style="max-height: 380px; width: auto;">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="highlight-box">
+                            <ul class="small-text">
+                                <li><strong>Método:</strong> Curva de k-vecinos más cercanos.</li>
+                                <li><strong>Punto de Corte:</strong> Donde la curvatura es máxima.</li>
+                                <li><strong>Objetivo:</strong> Separar ruido (anomalías) de clusters densos.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 13: Fase 3 - Resultados DBSCAN -->
+            <section>
+                <h3 style="margin-bottom: 5px;">Análisis Granular (DBSCAN)</h3>
+                <p class="small-text" style="margin-bottom: 8px; font-size: 0.85em;">Identificación de sub-perfiles y anomalías a partir de densidad</p>
+                <div class="container" style="margin-top: 5px; align-items: stretch;">
+                    <div class="col" style="flex: 0.48; display: flex; align-items: center;">
+                        <div class="image-container" style="width: 100%;">
+                            <img src="images/dbscan_clusters_visualization.png" alt="Clusters DBSCAN" class="zoomable" style="max-height: 360px; width: 100%; object-fit: contain;">
+                        </div>
+                    </div>
+                    <div class="col" style="flex: 0.52; padding-left: 10px;">
+                        <div class="highlight-box" style="padding: 8px 10px; margin: 3px 0; background-color: rgba(46, 204, 113, 0.12); border-left: 4px solid #2ecc71;">
+                            <h5 style="font-size: 0.75em; margin: 0 0 3px 0; color: #2ecc71; font-weight: bold;">Cluster 0 — Alta Carga estable</h5>
+                            <ul class="small-text" style="margin: 0; padding-left: 15px; line-height: 1.2; font-size: 0.8em;">
+                                <li>Consumo alto y consistente</li>
+                                <li>THD bajo, FP cercano a 1</li>
+                                <li>Operación normal producción</li>
+                            </ul>
+                        </div>
+                        <div class="highlight-box" style="padding: 8px 10px; margin: 3px 0; background-color: rgba(52, 152, 219, 0.12); border-left: 4px solid #3498db;">
+                            <h5 style="font-size: 0.75em; margin: 0 0 3px 0; color: #3498db; font-weight: bold;">Cluster 1 — Baja Carga con riesgo</h5>
+                            <ul class="small-text" style="margin: 0; padding-left: 15px; line-height: 1.2; font-size: 0.8em;">
+                                <li>Consumo reducido con armónicos</li>
+                                <li>THD elevado y FP débil</li>
+                                <li>Riesgo calidad y penalizaciones</li>
+                            </ul>
+                        </div>
+                        <div class="highlight-box" style="padding: 8px 10px; margin: 3px 0; background-color: rgba(231, 76, 60, 0.12); border: 2px solid #e74c3c;">
+                            <h5 style="font-size: 0.75em; margin: 0 0 3px 0; color: #e74c3c; font-weight: bold;">⚠️ Ruido / Anomalías (931 puntos)</h5>
+                            <ul class="small-text" style="margin: 0; padding-left: 15px; line-height: 1.2; font-size: 0.8em;">
+                                <li>32.3% de observaciones</li>
+                                <li>Transitorios y arranques atípicos</li>
+                                <li>Requieren revisión técnica</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 14: Oportunidades -->
+            <section>
+                <h3>5 Oportunidades de Mejora</h3>
+                <div style="font-size: 0.7em; text-align: left;">
+                    <p class="fragment">🔴 <strong>1. Corrección Factor Potencia (Baja Carga):</strong> Instalar bancos de capacitores automáticos.</p>
+                    <p class="fragment">🔴 <strong>2. Gestión de THD:</strong> Filtros armónicos para el 47.7% del tiempo.</p>
+                    <p class="fragment">🔴 <strong>3. Auditoría de Anomalías:</strong> Investigar los 931 eventos atípicos.</p>
+                    <p class="fragment">🟡 <strong>4. Rebalanceo de Fases:</strong> Corregir el 13.8% de desbalance severo.</p>
+                    <p class="fragment">🟡 <strong>5. Gestión de Demanda:</strong> Desplazar cargas del pico (11:00-14:00).</p>
+                </div>
+            </section>
+
+            <!-- Slide 15: Impacto -->
+            <section>
+                <h3>Impacto de Negocio Estimado</h3>
+                <div class="container">
+                    <div class="col">
+                        <div class="highlight-box">
+                            <h5>Ahorro Energético</h5>
+                            <h2>15-20%</h2>
+                            <p class="small-text">Reducción anual</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="highlight-box">
+                            <h5>Vida Útil Equipos</h5>
+                            <h2>+25%</h2>
+                            <p class="small-text">Menos armónicos</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="highlight-box">
+                            <h5>Incidentes</h5>
+                            <h2>-40%</h2>
+                            <p class="small-text">Gestión proactiva</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 16: Cierre -->
+            <section>
+                <h3>Conclusiones</h3>
+                <p class="medium-text">El aprendizaje no supervisado transformó datos brutos en una hoja de ruta clara para la optimización operativa.</p>
+                <div style="margin-top: 50px;">
+                    <h4>¿Preguntas?</h4>
+                    <p class="small-text">Proyecto Final - Noviembre 2025</p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Modal para zoom de imágenes -->
+    <div id="imageModal" class="image-modal">
+        <span class="close-modal">&times;</span>
+        <img id="modalImage" src="" alt="">
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.4/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            responsive: true,
+            controls: true,
+            progress: true,
+            center: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            plugins: [ RevealHighlight ]
+        });
+
+        // Funcionalidad de zoom para imágenes
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeBtn = document.querySelector('.close-modal');
+            const zoomableImages = document.querySelectorAll('.zoomable');
+
+            // Agregar evento click a todas las imágenes zoomables
+            zoomableImages.forEach(function(img) {
+                img.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    modal.style.display = 'block';
+                    modalImg.src = this.src;
+                    modalImg.alt = this.alt;
+                });
+            });
+
+            // Cerrar modal con X
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            // Cerrar modal haciendo click fuera de la imagen
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal || e.target === modalImg) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Cerrar modal con tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'block') {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
